@@ -1,0 +1,23 @@
+= Adoptium(R) Secure Software Development Practices
+:description: Adoptium Secure Software Engineering and Supply Chain Management Practices
+:keywords: Security SSDF SLSA Supply Chain
+:orgname: Eclipse Adoptium
+:lang: en
+:page-authors: tellison
+
+== Overview
+
+The Adoptium project produces high quality Java runtimes for use in mission-critical environments. It is important to the project and our users that the software we deliver is both safe and secure. Adoptium follows a set of fundamental, sound, and secure software development practices based on established secure software development practices that can be verified to establish the integrity of our deliverables.
+
+The secure engineering principles we follow are:
+
+Provenance and Trusted Sources::
++
+Adoptium builds source from trusted source repositories, and takes dependencies and tools from trusted locations. The Temurin build project contains the open source programs or "recipes" for building our releases. These build scripts run on virtual machines and operating systems sourced by the project from trusted providers, and use tools such as compilers and installers from trusted locations. The runtime itself is built from source code maintained by OpenJDK and other notable third-party projects with a strong history of governance and oversight to ensure that the resulting binary only contains the code and behavior expected.
++
+Adoptium collects, safeguards, maintains, and shares provenance data for all components of each software release in a software bill of materials. We regularly verify the integrity and check the provenance of each dependency to identify potential problems.
+
+Version Control and Tagging::
+All the code maintained by Adoptium projects is held in Github version controlled repositories under the Adoptium organization control. Our code is open source and available for scrutiny by the community, but access to change the code is limited to elected committers. We use the version control features of the repository to track all changes made to the code with accountability to the individual committer's account, and require secondary reviews, additional automated checks, and community oversight to ensure that the changes are safe and secure.
++
+Eclipse Temurin releases are built from version controlled sources that are tagged as release quality in OpenJDK, and the resulting binaries are published as tagged releases in our Github repository. These release artifacts are made available directly to users and redistributors via the Adoptium API, website, and repository.
