@@ -5,11 +5,18 @@
 :lang: en
 :page-authors: tellison
 
-== Overview
-
 The Adoptium project produces high quality Java runtimes for use in mission-critical environments. It is important to the project and our users that the software we deliver is both safe and secure. Adoptium follows a set of fundamental, sound, and secure software development practices based on established secure software development practices that can be verified to establish the integrity of our deliverables.
 
-The secure engineering principles we follow are:
+== Secure Development Practices
+
+Our secure development objectives are to:
+
+* Ensure our community, processes, and technology are designed for secure software development.
+* Protect all components of the process and software from tampering and unauthorized access.
+* Produce well-secured software with minimal security vulnerabilities throughout.
+* Respond appropriately to vulnerabilities and prevent similar vulnerabilities from occurring in the future.
+
+Adoptium meets these secure engineering objectives by adhering to the following practices:
 
 Provenance and Trusted Sources::
 +
@@ -33,7 +40,7 @@ IaC provides resiliance to configure and implement measures to secure the enviro
 
 Reproducible Builds::
 +
-An important part of Adoptium's secure engineering practice is for community members to be able to verify the builds we produce. This is made possible by having binary reproducible builds, meaning that with the same sources, tools, and machine configuration anyone can produce a byte-for-byte identical binary. This is made possible by ensuring that our source code, build scripts, and infrastrucure is well-defined and version controlled. We publish information on how to reproduce Adoptium binaries, and encourage others to verify those builds by checking that their build results match given the same inputs and processes.
+An important part of Adoptium's secure engineering practice is for community members to be able to verify the builds we produce. This is made possible by having binary verified reproducible builds, meaning that with the same sources, tools, and machine configuration anyone can produce a byte-for-byte identical result. This is made possible by ensuring that our source code, build scripts, and infrastrucure is well-defined and version controlled. We publish information on how to reproduce Adoptium binaries, and encourage others to verify those builds by checking that their build results match given the same inputs and processes.
 
 
 Testing and Code-signing::
@@ -50,3 +57,38 @@ All aspects of an Adoptium release are conducted in the open, beyond the Java co
 Temurin release binaries all have a corresponding cryptographic hash available to end users via the API, website, and Github release repository. Binaires are signed with the Eclipse code signing certificate that is issued by an established certificate authority so that our users' operating systems or other tools and services can confirm the validity of signatures before use.
 +
 Adoptium takes all security vulnerabilities seriously, and adheres to the Eclipse Foundation Vulnerability Reporting Policy. Notification of potential or actual vulnerabilities in the products or secure software development practices must follow that reporting policy.
+
+
+== Adoptium and SLSA Levels
+
+The Supply chain Levels for Software Artifacts(SLSA) is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, led to a set of well-defined outputs suchas as a binary and software bill of materials. It is a tool to help a producer trust the part of the supply chain you directly control and helps provide confidence in your build process catching any upstream supply chain attack.
+
+Adoptium has evaluated the secure engineering practices of the project to determine the appropriate SLSA level attestation. Our evaluation is provided in a Github issue, and we have achieved the following requirements:
+
+SLSA Level One - **Completed** ::
+* [x] Build - Scripted build
+* [x] Provenence - Available
+
+SLSA Level Two - **Completed** ::
+* [x] Source - Version controlled
+* [x] Build - Build service
+* [x] Provenance - Authenticated
+* [x] Provenance - Service generated
+
+SLSA Level Three - **In progress** ::
+* [x] Source - Retained 18mo.
+* [x] Build - Build as code
+* Build - Ephemeral environment
+* [x] Build - Isolated
+* Provenance - Non-falsifiable
+
+SLSA Level Four - **In progress** ::
+* Source - Two-person reviewed
+* Build - Parameterless
+* Build - Hermetic
+* [x] Build - Reproducible
+* [x] Provenance - Dependencies complete
+* Common - Security
+* Common - Access
+* Common - Superusers
+
