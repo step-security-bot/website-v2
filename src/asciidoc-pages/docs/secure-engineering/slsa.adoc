@@ -1,0 +1,50 @@
+= Adoptium(R) Secure Supply Chain Management
+:description: Adoptium Secure Supply Chain Management
+:keywords: Security SSDF SLSA Supply Chain
+:orgname: Eclipse Adoptium
+:lang: en
+:page-authors: tellison
+
+== Adoptium and SLSA Levels
+
+The Supply chain Levels for Software Artifacts (SLSA) is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, led to a set of well-defined outputs suchas as a binary and software bill of materials. It is a tool to help a producer trust the part of the supply chain you directly control and helps provide confidence in your build process catching any upstream supply chain attack.
+
+Adoptium has evaluated the secure engineering practices of the project to determine the appropriate SLSA level attestation. Our evaluation is provided in a Github issue, and we have achieved the following requirements:
+
+=== SLSA Level One - **Completed**
+
+Build - https://slsa.dev/spec/v0.1/requirements#scripted-build[Scripted build^]::
++
+All build steps for Eclipse Temurin are defined in
+https://github.com/adoptium/temurin-build[build scripts^]
+invoked by
+https://ci.adoptopenjdk.net/[our continuous build system^]. The build scripts are available for anyone to view and reuse, with the documentation in the repository
+https://github.com/adoptium/temurin-build#readme[readme file^].
+
+Provenence - https://slsa.dev/spec/v0.1/requirements#available[Available^]::
+WARNING: The provenance description of Eclipse Temurin available to the consumer in a format that the consumer accepts. The format SHOULD be in-toto SLSA Provenance, but another format MAY be used if both producer and consumer agree and it meets all the other requirements.
+
+
+=== SLSA Level Two - **Completed**
+
+Source - Version controlled::
+* [x] Build - Build service
+* [x] Provenance - Authenticated
+* [x] Provenance - Service generated
+
+SLSA Level Three - **In progress** ::
+* [x] Source - Retained 18mo.
+* [x] Build - Build as code
+* Build - Ephemeral environment
+* [x] Build - Isolated
+* Provenance - Non-falsifiable
+
+SLSA Level Four - **In progress** ::
+* Source - Two-person reviewed
+* Build - Parameterless
+* Build - Hermetic
+* [x] Build - Reproducible
+* [x] Provenance - Dependencies complete
+* Common - Security
+* Common - Access
+* Common - Superusers
