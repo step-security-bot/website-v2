@@ -69,7 +69,8 @@ const DocumentationPage = ({ data }) => (
               title='Secure Software'
               Icon={FaLock}
               links={[
-                { name: 'Secure Software Practices', link: '/docs/secure-engineering' },
+                { name: 'Secure Software Practices', link: '/docs/secure-software/index.adoc' },
+                { name: 'SLSA Secure Supply Chain', link: '/docs/secure-software/slsa.adoc' },
                 { name: 'Vulnerability Reporting', link: 'https://www.eclipse.org/security/policy.php' }
               ]}
             />
