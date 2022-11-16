@@ -6,15 +6,17 @@
 :page-authors: tellison, sxa
 
 
-The https://slsa.dev/[Supply chain Levels for Software Artifacts (SLSA)^] is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, lead to a set of well-defined outputs such as as a binary and software bill of materials. It is a structured set of technical requirements to help a producer trust the parts of the supply chain that are in their direct control and helps provide confidence in the build process to catch any upstream supply chain attack.
+The https://slsa.dev/[Supply chain Levels for Software Artifacts (SLSA)^] is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, lead to a set of well-defined outputs such as a binary and software bill of materials. It is a structured set of technical requirements to help a producer trust the parts of the supply chain that are in their direct control and helps provide confidence in the build process to catch any upstream supply chain attacks.
 
-Adoptium has evaluated the secure engineering practices of our project to determine the appropriate level of SLSA attestation. Details of the SLSA level requirements and how they are being met by Adoptium are given below. Note that SLSA is still in "alpha" state and the requirements are subject to change, particularly for SLSA Levels 3 and 4.
+Adoptium has evaluated the
+link:/docs/secure-software[secure engineering practices of our project^]
+to determine the appropriate level of SLSA attestation. Details of the SLSA level requirements and how they are being met by Adoptium are given below. Note that SLSA is still in "alpha" state and the requirements are subject to change, particularly for SLSA Levels 3 and 4.
 
 === SLSA Level One
 
 The following requirements for Adoptium's build of Eclipse Temurin have been achieved, and satisfy the necessary requirements to meet SLSA Level 1.
 
-This level means that Adoptium's build process is fully scripted and automated, and publishes software bill of material (SBOM) attestations describing the items which went into producing each of the builds.
+This level means that Adoptium's build process is fully scripted and automated, and publishes formally structured software bill of material (SBOM) attestations listing the components, libraries, and modules that are required to build each binary.
 
 Build - https://slsa.dev/spec/v0.1/requirements#scripted-build[Scripted build^]::
 +
