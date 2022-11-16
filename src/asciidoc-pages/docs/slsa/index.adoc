@@ -6,11 +6,11 @@
 :page-authors: tellison
 
 
-The https://slsa.dev/[Supply chain Levels for Software Artifacts (SLSA)^] is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, led to a set of well-defined outputs suchas as a binary and software bill of materials. It is a structured set of technical requirements to help a producer trust the part of the supply chain that are in their direct control and helps provide confidence in your build process catching any upstream supply chain attack.
+The https://slsa.dev/[Supply chain Levels for Software Artifacts (SLSA)^] is a security framework that helps to provide confidence that a set of inputs such as source code, libraries, and software packages, lead to a set of well-defined outputs such as as a binary and software bill of materials. It is a structured set of technical requirements to help a producer trust the parts of the supply chain that are in their direct control and helps provide confidence in the build process to catch any upstream supply chain attack.
 
-Adoptium has evaluated the secure engineering practices of the project to determine the appropriate SLSA level attestation. Note that SLSA is still in "alpha" state and the requirements are subject to change, particularly for SLSA Levels 3 and 4.
+Adoptium has evaluated the secure engineering practices of our project to determine the appropriate level of SLSA attestation. Details of the SLSA level requirements and how they are being met by Adoptium are given below. Note that SLSA is still in "alpha" state and the requirements are subject to change, particularly for SLSA Levels 3 and 4.
 
-=== SLSA Level One - **Completed**
+=== SLSA Level One
 
 The following requirements for Adoptium's build of Eclipse Temurin have been achieved, and satisfy the necessary requirements to meet SLSA Level 1.
 
@@ -19,37 +19,44 @@ Build - https://slsa.dev/spec/v0.1/requirements#scripted-build[Scripted build^]:
 All build steps for Eclipse Temurin are defined in build scripts stored in the 
 https://github.com/adoptium/temurin-build[adoptium/temurin-build^]
 repository and invoked by
-https://ci.adoptopenjdk.net/[our continuous build system^]. The build scripts are available for anyone to view and reuse, with the documentation in the repository
+https://ci.adoptopenjdk.net/[our continuous build system^]. The build scripts are available for anyone to view and verify. The documentation for using these scripts is available in the repository's
 https://github.com/adoptium/temurin-build#readme[readme file^].
 
 Provenence - https://slsa.dev/spec/v0.1/requirements#available[Available^]::
 +
-WARNING: The provenance description of Eclipse Temurin available to the consumer in a format that the consumer accepts. The format SHOULD be in-toto SLSA Provenance, but another format MAY be used if both producer and consumer agree and it meets all the other requirements.
+WARNING: The provenance (metadata about how an artifact was produced) description of Eclipse Temurin available to the consumer in a format that the consumer accepts. The format SHOULD be in-toto SLSA Provenance, but another format MAY be used if both producer and consumer agree and it meets all the other requirements.
++
+TPE: Can we point to our SBOM for this provenance info? If not we need to emit it from the build system.
 
 
-=== SLSA Level Two - **Completed**
+=== SLSA Level Two
 
 The following additional requirements for Adoptium's build of Eclipse Temurin have been achieved, and satisfy the necessary requirements to meet SLSA Level 2.
 
 Source - https://slsa.dev/spec/v0.1/requirements#version-controlled[Version controlled^]::
 +
-Adoptium mirrors the OpenJDK sources in our local Github repository (e.g. https://github.com/adoptium/jdk17u[adoptium/jdk17u^]). Every change to the source we build and scripts we use is tracked by the Github version control system. This ensures a record of the history of changes that went into each revision. Each change contains the identities of the uploader and reviewers, timestamps of the reviews and submission, the change description/justification, the content of the change, and the parent revisions.
+Adoptium mirrors the
+https://openjdk.org/[OpenJDK^] Java SE reference implementation source code into our local Github repository
+(e.g. https://github.com/adoptium/jdk17u[adoptium/jdk17u^]).
+Every change to the source we build and the scripts we use is tracked by Github's version control system. This ensures a record of the history of changes that went into each revision. Each change contains the identities of the uploader and reviewers, timestamps of the reviews and submission, the change description/justification, the content of the change, and the parent revisions. All committers and reviewers undergo strong suthentication, and all contributors must execute and abide by the
+https://www.eclipse.org/legal/ECA.php[Eclipse Contributor Agreement^].
 +
-Each immutable revision has a unique reference with an indefinite lifespan via Github using the {repo URL + branch/tag/ref + commit ID}.
+Each immutable revision of the code under our control has a unique reference with an indefinite lifespan via Github (repo URL + branch/tag/ref + commit ID).
 
 
 Build - https://slsa.dev/spec/v0.1/requirements#build-service[Build service^]::
 +
 All Adoptium's build steps run on
-https://ci.adoptopenjdk.net/[our own managed build service^], not on a developer’s workstation. Access to the build service is carefully managed by the project.
+https://ci.adoptopenjdk.net/[our own managed build service^], not on a developer’s workstation. Access to the build service is carefully managed by the project. The build system is as open as possible to allow scrutiny by the community withut compromising security.
 
 Provenance - https://slsa.dev/spec/v0.1/requirements#authenticated[Authenticated^]::
 +
 WARNING: The provenance’s authenticity and integrity can be verified by the consumer. This SHOULD be through a digital signature from a private key accessible only to the service generating the provenance.
++ TPE: I don't think we are signing provenance info.
 
 Provenance - https://slsa.dev/spec/v0.1/requirements#service-generated[Service generated^]::
 +
-All of Adoptium provenance data is generated directly by the project continuous build and test systems. Service users cannot injject or alter the contents of the provenance. Eclipse Temurin's code signatures are generated by the Eclipse code-signing service, other provenance data including the software bill of materials, cryptographic hashes, build metadata, etc. is directly emitted by the project build system
+All of Adoptium provenance data is generated directly by the project continuous build and test systems. Service users cannot inject or alter the contents of the provenance. Eclipse Temurin's code signatures are generated by the Eclipse code-signing service, other provenance data including the software bill of materials, cryptographic hashes, build metadata, etc. is directly emitted by the project build system.
 
 
 === SLSA Level Three - **In progress**
@@ -58,9 +65,12 @@ Some of the following additional requirements for Adoptium's build of Eclipse Te
 
 Source - https://slsa.dev/spec/v0.1/requirements#retained-indefinitely[Retained 18mo^]::
 +
-All revisions to source code and its change history are preserved indefinitely and cannot be deleted, except when subject to an established and transparent policy for obliteration, such as a legal or policy requirement. This level of control is maintained directly by the Eclipse Foundation on behalf of the project.
+All revisions to source code and its change history are preserved indefinitely and cannot be deleted, except when subject to an established and transparent policy for obliteration, such as a legal or policy requirement. This level of superuser control for changing or deleting history is maintained directly and exclusively by
+https://ecliipse.org[the Eclipse Foundation^]
+on behalf of the project.
 +
-Since we store all our code in Github it is not be possible for persons to delete or modify the history, even with multi-party approval, except by trusted Eclipse Foundation platform admins with two-party approval following the obliterate policy.
+Since we store all our code in Github it is not be possible for persons to delete or modify the history, even with multi-party approval, except by trusted Eclipse Foundation platform admins with two-party approval following the foundation's obliterate policy. Questions about this policy should be
+https://www.eclipse.org/org/foundation/contact.php[[addressed to the Eclipse Foundation].
 
 Build - https://slsa.dev/spec/v0.1/requirements#build-as-code[Build as code^]::
 +
@@ -68,17 +78,15 @@ Adoptium's build definition and configuration executed by
 https://ci.adoptopenjdk.net/[the build service^]
 is verifiably derived from text file definitions stored in our version control system.
 +
-WARNING: Are our Jenkins build configurations stored in a version control system?
-+
-Verifiably derived means either fetched directly through a trusted channel, or that the derived definition has some trustworthy provenance chain linking back to version control.
+WARNING: Are our Jenkins build configurations stored in a version control system?  Verifiably derived means either fetched directly through a trusted channel, or that the derived definition has some trustworthy provenance chain linking back to version control.
 
 Build - https://slsa.dev/spec/v0.1/requirements#ephemeral-environment[Ephemeral environment^]::
 +
-Work in progress.
+Ephemeral environment builds such as a container or VM, provisioned solely for this build, and not reused from a prior build are still a work in progress at the project.
 
 Build - https://slsa.dev/spec/v0.1/requirements#isolated[Isolated^]::
 +
-The Adoptium build service ensures that the build steps run in an isolated environment free of influence from other build instances, whether prior or concurrent.
+The Adoptium build service ensures that each build step runs in an isolated environment free of influence from other build instances, whether prior or concurrent.
 +
 It is not possible for a build to access any secrets of the build service, such as the provenance signing key, as these are stored outside the build system and accessed by a remote call to a separate system.
 +
